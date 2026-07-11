@@ -2,6 +2,7 @@ import turtle
 
 screen = turtle.Screen()  
 my_turtle = turtle.Turtle()
+print("test")
 my_turtle.shape("turtle")
 my_turtle.forward(50)
 my_turtle.right(45)
