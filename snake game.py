@@ -26,7 +26,7 @@ pen.penup()
 pen.hideturtle()
 pen.goto(0,200)
 pen.clear()
-pen.write("Score: {} <---- you kinda suck      High score: {} <---- kinda bad".format(score, high_score),
+pen.write("Score: {} High score: {}".format(score, high_score),
 align = "center", font=("Consolas", 20, "normal"))
 def move():
     if head.direction == "up":
@@ -70,14 +70,32 @@ while True:
         if score>high_score:
             high_score 
         pen.clear()
-    pen.write("Score: {} <---- you kinda suck      High score: {} <---- kinda bad".format(score, high_score),
-    align = "center", font=("Consolas", 20, "normal"))
     if len(body)>0:
         for index in range(len(body)-1, 0, -1):
             x = body[index-1].xcor()
             y = body[index-1].ycor()
-            body[0].goto(x,y)
-    x = head.xcor()
-    y = head.ycor()
+            body[index].goto(x,y)
+        x = head.xcor()
+        y = head.ycor()
+        body[0].goto(x,y)
+    if head.xcor() > 240 or head.xcor() <-240 or head.ycor() > 240 or head.ycor() < -240:
+        time.sleep(1)
+        head.goto(0,0)
+        head.direction = "stop"
+        for item in body:
+            item.goto(1000, 1000)
+        body = []
+        score = 0
+    for item in body[2:]:
+        if item.distance(head) <15:
+            time.sleep(1)
+            head.goto (0,0)
+            head.direction = "stop"
+            for item in body:
+                item.goto(1000,1000)
+            body = []
+            score = 0
+    pen.write("Score: {}  High score: {} ".format(score, high_score),
+    align = "center", font=("Consolas", 20, "normal"))
     move()
     time.sleep(delay)
